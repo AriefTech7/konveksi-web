@@ -1,5 +1,12 @@
+# kenapa membuat user pada dockerfile?
+# supaya direktori yang dibuat dari dockerfile ini hanya bisa diakses oleh user tersebut dan root, tanpa
+# campur tangan orang lain
+
+# Note:
+# base image ini menggunakan os debian yang sudah menjadi standar default di docker hub
+
 # menentukan base image yang akan digunakan pada kontainer
-FROM php:8.3-fpm
+FROM php:8.4-fpm
 
 # menginisialisasi variabel sementara yang akan digunakan pada dockerfile ini
 ARG UID=1000
@@ -18,22 +25,20 @@ RUN apt-get update && apt-get install -y \
     libicu-dev \
     libpq-dev \
     && docker-php-ext-configure gd \
-    --with-freetype \
-    --with-jpeg \
+        --with-freetype \
+        --with-jpeg \
     && docker-php-ext-install -j$(nproc) \
-    bcmath \
-    exif \
-    gd \
-    intl \
-    mbstring \
-    opcache \
-    pcntl \
-    pdo_mysql \
-    zip \
+        bcmath \
+        exif \
+        gd \
+        intl \
+        mbstring \
+        opcache \
+        pcntl \
+        pdo_mysql \
+        zip \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
-
-
 
 COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 
@@ -43,7 +48,7 @@ RUN groupadd --gid ${GID} appgroup \
 # menentukan tempat kerja (direktori aktif) pada kontainer untuk perintah" selanjutnya
 WORKDIR /var/www/html
 
-COPY --chown=appuser:appgroup  composer.json composer.lock /app/
+COPY --chown=appuser:appgroup composer.json composer.lock ./
 
 RUN composer install \
     --no-interaction \
@@ -64,14 +69,6 @@ RUN mkdir -p storage/framework/cache \
 USER appuser
 
 # menentukan port yang akan dilisten oleh docker
-EXPOSE 9090
+EXPOSE 9000
 
-
-CMD [ "php-fpm","-F" ]
-
-# kenapa membuat user pada dockerfile?
-# supaya direktori yang dibuat dari dockerfile ini hanya bisa diakses oleh user tersebut dan root, tanpa
-# campur tangan orang lain
-
-# Note:
-# base image ini menggunakan os debian yang sudah menjadi standar default di docker hub
+CMD ["php-fpm", "-F"]
