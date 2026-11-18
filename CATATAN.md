@@ -86,6 +86,19 @@ docker compose exec app-konveksi-web php artisan route:list
 
 ### Catatan penting
 
+konfigurasi di file .env
+
+``
+DB_CONNECTION=mysql
+DB_HOST=db-konveksi-web
+DB_PORT=3306
+DB_DATABASE=db_konveksi
+DB_USERNAME=user-app
+DB_PASSWORD=secret_konveksi
+``
+
 - Port Nginx secara default adalah `8080`.
 - Jangan menggunakan `docker compose down -v` jika data database masih diperlukan karena opsi `-v` menghapus volume Docker.
 - Jika port ingin diubah, atur `APP_PORT` di file `.env`, kemudian jalankan ulang container.
+
+
