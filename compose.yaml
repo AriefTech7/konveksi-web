@@ -51,7 +51,7 @@ services:
                     "localhost",
                     "-u",
                     "root",
-                    "-p${DB_PASSWORD:-root}"
+                    "-p${DB_PASSWORD:-root}",
                 ]
             interval: 5s
             timeout: 5s
@@ -67,7 +67,12 @@ services:
         volumes:
             - .:/var/www/html
             - laravel_node_modules:/var/www/html/node_modules
-        command: ["npm", "run", "dev", "--", "--host", "0.0.0.0"]
+        command:
+            [
+                "sh",
+                "-c",
+                "if [ ! -x node_modules/.bin/vite ]; then npm ci; fi && npm run dev -- --host 0.0.0.0",
+            ]
         networks:
             - laravel
 

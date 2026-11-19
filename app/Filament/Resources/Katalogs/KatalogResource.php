@@ -18,7 +18,9 @@ class KatalogResource extends Resource
 {
     protected static ?string $model = Katalog::class;
 
-    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
+    // protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
+    protected static string|BackedEnum|null $navigationIcon = 'heroicon-o-folder';
+
 
     protected static ?string $modelLabel = 'Katalog';
 
