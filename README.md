@@ -1,58 +1,108 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Persiapan Project
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+## Akun Admin
 
-## About Laravel
+- Email: `root@root.com`
+- Password: `root`
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## Menjalankan Proyek dengan Docker Compose
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+Semua perintah berikut dijalankan dari direktori utama proyek.
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+### Menjalankan untuk pertama kali
 
-## Learning Laravel
+1. Build dan jalankan container:
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+   ```bash
+   docker compose up -d --build
+   ```
 
-In addition, [Laracasts](https://laracasts.com) contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+2. Instal dependency frontend ke volume Node:
 
-You can also watch bite-sized lessons with real-world projects on [Laravel Learn](https://laravel.com/learn), where you will be guided through building a Laravel application from scratch while learning PHP fundamentals.
+   ```bash
+   docker compose run --rm --no-deps node-konveksi-web npm ci
+   docker compose restart node-konveksi-web
+   ```
 
-## Agentic Development
+3. Jalankan migrasi database:
 
-Laravel's predictable structure and conventions make it ideal for AI coding agents like Claude Code, Cursor, and GitHub Copilot. Install [Laravel Boost](https://laravel.com/docs/ai) to supercharge your AI workflow:
+   ```bash
+   docker compose exec app-konveksi-web php artisan migrate --no-interaction
+   ```
+4. Install dependecy pada docker:
+
+    ```bash
+    docker compose exec -u root app-konveksi-web composer install
+    ```
+5. Buka aplikasi:
+
+   - Website: <http://localhost:8080>
+   - Admin: <http://localhost:8080/admin>
+   - Vite: <http://localhost:5173>
+
+### Penggunaan sehari-hari
+
+Jalankan container:
 
 ```bash
-composer require laravel/boost --dev
-
-php artisan boost:install
+docker compose up -d
 ```
 
-Boost provides your agent 15+ tools and skills that help agents build Laravel applications while following best practices.
+Lihat status container:
 
-## Contributing
+```bash
+docker compose ps
+```
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+Lihat log semua container:
 
-## Code of Conduct
+```bash
+docker compose logs -f
+```
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+Lihat log service tertentu:
 
-## Security Vulnerabilities
+```bash
+docker compose logs -f nginx-konveksi-web
+docker compose logs -f app-konveksi-web
+docker compose logs -f node-konveksi-web
+```
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+Hentikan dan hapus container tanpa menghapus data database:
 
-## License
+```bash
+docker compose down
+```
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+Build ulang setelah mengubah `Dockerfile` atau dependency Composer:
+
+```bash
+docker compose up -d --build
+```
+
+### Perintah Laravel di dalam container
+
+```bash
+docker compose exec app-konveksi-web php artisan migrate
+docker compose exec app-konveksi-web php artisan optimize:clear
+docker compose exec app-konveksi-web php artisan route:list
+```
+
+### Catatan penting
+
+konfigurasi di file .env
+
+```bash
+DB_CONNECTION=mysql
+DB_HOST=db-konveksi-web
+DB_PORT=3306
+DB_DATABASE=db_konveksi
+DB_USERNAME=user-app
+DB_PASSWORD=secret_konveksi
+```
+
+- Port Nginx secara default adalah `8080`.
+- Jangan menggunakan `docker compose down -v` jika data database masih diperlukan karena opsi `-v` menghapus volume Docker.
+- Jika port ingin diubah, atur `APP_PORT` di file `.env`, kemudian jalankan ulang container.
+
+
