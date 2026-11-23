@@ -24,11 +24,7 @@ class KategorisTable
                     ->disk('public')
                     ->label('Gambar Kategori')
                     ->square()
-                    ->visibility('public'),
-                TextColumn::make('status')
-                    ->label('Status')
-                    ->searchable(),
-                
+                    ->visibility('public')
             ])
             ->filters([
                 //

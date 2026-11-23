@@ -20,7 +20,7 @@ class KategoriForm
                         TextInput::make('nama_kategori')
                             ->label('Nama Kategori')
                             ->required()
-                            ->columnSpanFull(), 
+                            ->columnSpanFull(),
 
                         Textarea::make('deskripsi_kategori')
                             ->label('Deskripsi Kategori')
@@ -35,17 +35,6 @@ class KategoriForm
                             ->directory('kategori')
                             ->visibility('public')
                             ->required(),
-
-                        Radio::make('status')
-                            ->label('Status')
-                            ->options([
-                                1 => 'Aktif',
-                                0 => 'Non Aktif',
-                            ])
-                            ->descriptions([
-                                1 => 'Is visible.',
-                                0 => 'Is not visible.',
-                            ]),
                     ])
                     ->columns(2)
                     ->columnSpanFull(),
