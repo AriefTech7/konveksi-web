@@ -4,7 +4,7 @@ namespace App\Filament\Resources\Katalogs\Tables;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
-use Filament\Tables\Columns\IconColumn;
+use Filament\Tables\Columns\ImageColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 
@@ -14,17 +14,25 @@ class KatalogsTable
     {
         return $table
             ->columns([
-                TextColumn::make('Nama Katalog')
+                TextColumn::make('nama_katalog')
+                    ->label('Nama Katalog')
                     ->searchable(),
-                TextColumn::make('Harga')
+                TextColumn::make('harga')
+                    ->label('Harga')
                     ->searchable(),
-                TextColumn::make('Deskripsi')
+                TextColumn::make('deskripsi')
+                    ->label('Deskripsi')
                     ->searchable(),
-                IconColumn::make('Gambar Katalog')
-                    ->boolean(),
-                TextColumn::make('Minimum Order')
+                ImageColumn::make('gambar_katalog')
+                    ->disk('public')
+                    ->label('Gambar Katalog')
+                    ->square()
+                    ->visibility('public'),
+                TextColumn::make('minimum_order')
+                    ->label('Minimum Order')
                     ->searchable(),
-                TextColumn::make('Estimasi Produk')
+                TextColumn::make('estimasi_produk')
+                    ->label('Estimasi Produk')
                     ->searchable(),
             ])
             ->filters([
