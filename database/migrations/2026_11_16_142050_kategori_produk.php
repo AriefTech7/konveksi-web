@@ -14,7 +14,7 @@ return new class extends Migration
             $table->string('nama_kategori');
             $table->text('deskripsi_kategori')->nullable();
             $table->string('gambar_kategori')->nullable();
-
+            $table->enum('status', ['aktif', 'nonaktif'])->default('aktif');
             $table->timestamp('created_at')->useCurrent();
 
             $table->timestamp('updated_at')
