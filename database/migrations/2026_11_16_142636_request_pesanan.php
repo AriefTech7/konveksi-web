@@ -19,7 +19,7 @@ return new class extends Migration
 
             $table->unsignedBigInteger('customer_id');
 
-            $table->unsignedBigInteger('katalog_id');
+            $table->unsignedInteger('katalog_id');
 
             // Bahan boleh kosong karena customer belum tentu memilih bahan
             $table->unsignedBigInteger('bahan_id')->nullable();
