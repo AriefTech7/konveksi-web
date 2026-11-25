@@ -1,9 +1,10 @@
 <?php
+
 namespace App\Filament\Resources\Katalogs\Tables;
 
 use Filament\Actions\BulkActionGroup;
-use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\DeleteAction;
+use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
 use Filament\Tables\Columns\ImageColumn;
 use Filament\Tables\Columns\TextColumn;
@@ -18,6 +19,9 @@ class KatalogsTable
                 TextColumn::make('nama_katalog')
                     ->label('Nama Katalog')
                     ->searchable(),
+                TextColumn::make('kategori_produk.nama_kategori')
+                    ->label('Kategori Produk')
+                    ->searchable(),
                 TextColumn::make('harga')
                     ->label('Harga')
                     ->searchable(),
@@ -26,8 +30,7 @@ class KatalogsTable
                     ->searchable(),
                 ImageColumn::make('gambar_katalog')
                     ->disk('public')
-                    ->label('Gambar Katalog')
-                    ->square()
+                    ->label('Gambar')
                     ->visibility('public'),
                 TextColumn::make('minimum_order')
                     ->label('Minimum Order')
@@ -40,8 +43,11 @@ class KatalogsTable
                 //
             ])
             ->recordActions([
-                EditAction::make(),
-                DeleteAction::make(),
+                EditAction::make()
+                    ->label('Edit')
+                    ->modal(),
+                DeleteAction::make()
+                    ->label('Hapus'),
             ])
             ->toolbarActions([
                 BulkActionGroup::make([

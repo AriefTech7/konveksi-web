@@ -7,20 +7,17 @@ use App\Filament\Resources\Katalogs\Pages\EditKatalog;
 use App\Filament\Resources\Katalogs\Pages\ListKatalogs;
 use App\Filament\Resources\Katalogs\Schemas\KatalogForm;
 use App\Filament\Resources\Katalogs\Tables\KatalogsTable;
-use App\Models\Katalog;
+use App\Models\katalog as Katalog;
 use BackedEnum;
 use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
-use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Table;
 
 class KatalogResource extends Resource
 {
     protected static ?string $model = Katalog::class;
 
-    // protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
     protected static string|BackedEnum|null $navigationIcon = 'heroicon-o-folder';
-
 
     protected static ?string $modelLabel = 'Katalog';
 
@@ -29,7 +26,6 @@ class KatalogResource extends Resource
     protected static ?string $navigationLabel = 'Katalog';
 
     protected static ?string $recordTitleAttribute = 'katalog';
-
 
     public static function form(Schema $schema): Schema
     {

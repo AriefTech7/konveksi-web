@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Filament\Resources\Katalogs\Pages;
 
 use App\Filament\Resources\Katalogs\KatalogResource;
@@ -9,11 +10,11 @@ class ListKatalogs extends ListRecords
 {
     protected static string $resource = KatalogResource::class;
 
-
     protected function getHeaderActions(): array
     {
         return [
-            CreateAction::make(),
+            CreateAction::make()
+                ->label('Buat Katalog'),
         ];
     }
 }
