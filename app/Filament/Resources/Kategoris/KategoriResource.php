@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Filament\Resources\Kategoris;
 
 use App\Filament\Resources\Kategoris\Pages\CreateKategori;
@@ -10,7 +11,6 @@ use App\Models\kategori_produk as Kategori;
 use BackedEnum;
 use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
-use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Table;
 
 class KategoriResource extends Resource
@@ -20,7 +20,8 @@ class KategoriResource extends Resource
     protected static string|BackedEnum|null $navigationIcon = 'heroicon-o-tag';
 
     protected static ?string $recordTitleAttribute = 'Kategori produk';
-    protected static ?string $modelLabel           = 'Kategori produk';
+
+    protected static ?string $modelLabel = 'Kategori produk';
 
     protected static ?string $pluralModelLabel = 'Kategori produk';
 
@@ -46,9 +47,9 @@ class KategoriResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index'  => ListKategoris::route('/'),
+            'index' => ListKategoris::route('/'),
             'create' => CreateKategori::route('/create'),
-            'edit'   => EditKategori::route('/{record}/edit'),
+            'edit' => EditKategori::route('/{record}/edit'),
         ];
     }
 }
