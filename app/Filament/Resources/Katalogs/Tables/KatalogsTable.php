@@ -31,6 +31,7 @@ class KatalogsTable
                 ImageColumn::make('gambar_katalog')
                     ->disk('public')
                     ->label('Gambar')
+                    ->alt('Katalog Cosmos')
                     ->visibility('public'),
                 TextColumn::make('minimum_order')
                     ->label('Minimum Order')

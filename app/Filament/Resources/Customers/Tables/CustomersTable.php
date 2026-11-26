@@ -19,8 +19,7 @@ class CustomersTable
                     ->label('Nama Customer')
                     ->searchable(),
                 TextColumn::make('nomor_whatsapp')
-                    ->label('Nomor Whatsapp')
-                    ->searchable(),
+                    ->label('Nomor Whatsapp'),
                 TextColumn::make('alamat')
                     ->label('Alamat')
                     ->searchable(),
