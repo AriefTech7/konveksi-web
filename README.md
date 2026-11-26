@@ -1,9 +1,6 @@
 # Website Konveksi Cosmos
 
-## Akun Admin
 
-- Email: `root@root.com`
-- Password: `root`
 
 ## Menjalankan Proyek dengan Docker Compose
 
@@ -34,11 +31,24 @@ Semua perintah berikut dijalankan dari direktori utama proyek.
     ```bash
     docker compose exec -u root app-konveksi-web composer install
     ```
-5. Buka aplikasi:
+5. Buat symbolic link untuk file gambar yang disimpan pada public storage, lalu bersihkan cache konfigurasi:
+
+    ```bash
+    docker compose exec app-konveksi-web php artisan storage:link
+    docker compose exec app-konveksi-web php artisan optimize:clear
+    ```
+6. Buat user baru untuk login:
+    ```bash
+    docker compose exec app-konveksi-web php artisan make:filament-user
+    ```
+
+7. Buka aplikasi:
 
    - Website: <http://localhost:8080>
    - Admin: <http://localhost:8080/admin>
    - Vite: <http://localhost:5173>
+
+
 
 ### Penggunaan sehari-hari
 
@@ -105,4 +115,30 @@ DB_PASSWORD=secret_konveksi
 - Jangan menggunakan `docker compose down -v` jika data database masih diperlukan karena opsi `-v` menghapus volume Docker.
 - Jika port ingin diubah, atur `APP_PORT` di file `.env`, kemudian jalankan ulang container.
 
+### Sinkronisasi gambar katalog antar-laptop
+
+File gambar yang diunggah melalui Filament disimpan secara lokal dan tidak dimasukkan ke Git. Agar gambar katalog dapat ditampilkan pada laptop lain:
+
+1. Salin folder berikut dari laptop yang memiliki file gambar ke lokasi yang sama pada laptop tujuan:
+
+    ```text
+    storage/app/public/katalog
+    storage/app/public/katalog_bahan
+    storage/app/public/kategori
+    ```
+
+2. Pastikan database pada laptop tujuan menyimpan path gambar yang sama dengan nama file yang telah disalin. Contoh:
+
+    ```text
+    katalog/nama-file.jpg
+    katalog_bahan/nama-file.png
+    kategori/nama-file.jpg
+    ```
+
+3. Buat ulang symbolic link dan bersihkan cache konfigurasi pada laptop tujuan:
+
+    ```bash
+    docker compose exec app-konveksi-web php artisan storage:link
+    docker compose exec app-konveksi-web php artisan optimize:clear
+    ```
 

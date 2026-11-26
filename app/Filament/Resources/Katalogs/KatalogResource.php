@@ -48,8 +48,7 @@ class KatalogResource extends Resource
     {
         return [
             'index' => ListKatalogs::route('/'),
-            'create' => CreateKatalog::route('/create'),
-            'edit' => EditKatalog::route('/{record}/edit'),
+
         ];
     }
 }

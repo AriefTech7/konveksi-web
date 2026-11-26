@@ -9,7 +9,7 @@ use Filament\Actions\EditAction;
 use Filament\Tables\Columns\ImageColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
-
+use Filament\Actions\Action;
 class KategorisTable
 {
     public static function configure(Table $table): Table
@@ -33,7 +33,19 @@ class KategorisTable
             ->recordActions([
                 EditAction::make()
                     ->label('Edit')
-                    ->modal(),
+                    ->modal()
+                    ->modalHeading('Edit Kategori')
+                    ->modalSubmitAction(
+                        fn (Action $action) => $action
+                            ->label('Simpan')
+                            ->icon('heroicon-o-check')
+                            ->color('success')
+                    )
+                    ->modalCancelAction(
+                        fn (Action $action) => $action
+                            ->label('Batal')
+                            ->color('danger')
+                    ),
                 DeleteAction::make()
                     ->label('Hapus'),
             ])

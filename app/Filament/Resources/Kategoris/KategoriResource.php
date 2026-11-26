@@ -48,8 +48,6 @@ class KategoriResource extends Resource
     {
         return [
             'index' => ListKategoris::route('/'),
-            'create' => CreateKategori::route('/create'),
-            'edit' => EditKategori::route('/{record}/edit'),
         ];
     }
 }
