@@ -13,13 +13,13 @@ class ListKatalogBahans extends ListRecords
     {
         return [
             CreateAction::make()
-                ->label('Buat Katalog Bahan')
+                ->label('Tambah Katalog Bahan')
                 ->modalHeading('Tambah Katalog Bahan Baru')
                 ->modal()
                 ->modalSubmitAction(
 
                     fn (Action $action) => $action
-                        ->label('Buat Katalog')
+                        ->label('Tambah Katalog')
                         ->icon('heroicon-o-check')
                         ->color('success')
                 )

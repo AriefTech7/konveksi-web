@@ -14,7 +14,7 @@ class ListKategoris extends ListRecords
     {
         return [
             CreateAction::make()
-                ->label('Buat Kategori')
+                ->label('Tambah Kategori')
                 ->modalHeading('Tambah Kategori Baru')
                 ->modal()
                 ->modalSubmitAction(

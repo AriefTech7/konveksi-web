@@ -2,7 +2,6 @@
 namespace App\Filament\Resources\Kategoris\Schemas;
 
 use Filament\Forms\Components\FileUpload;
-use Filament\Forms\Components\Radio;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
 use Filament\Schemas\Components\Section;
