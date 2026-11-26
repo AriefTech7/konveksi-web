@@ -47,8 +47,6 @@ class PortfolioResource extends Resource
     {
         return [
             'index'  => ListPortfolios::route('/'),
-            'create' => CreatePortfolio::route('/create'),
-            'edit'   => EditPortfolio::route('/{record}/edit'),
         ];
     }
 }

@@ -8,18 +8,19 @@ class portfolio extends Model
 {
     protected $table = 'portofolio';
 
-    protected $primaryKey = 'portfolio_id';
+    protected $primaryKey = 'portofolio_id';
 
     protected $fillable = [
         'kategori_id',
-        'nama_portfolio',
-        'deskripsi_portfolio',
-        'gambar_portfolio',
+        'nama_portofolio',
+        'deskripsi_portofolio',
+        'gambar_portofolio',
         'created_at',
         'updated_at',
     ];
     public function kategori(): BelongsTo
     {
-        return $this->belongTo(kategori_produk::class,'kategori_id','kategori_id');
+        // Parameter: (ModelTujuan, foreign_key_di_katalog, primary_key_di_kategori_produk)
+        return $this->belongsTo(kategori_produk::class, 'kategori_id', 'kategori_id');
     }
 }
